@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:payflow/shared/themes/app_colors.dart';
 import 'package:payflow/shared/themes/app_images.dart';
 import 'package:payflow/shared/themes/app_text_styles.dart';
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             Container(
               width: size.width,
-              height: size.height * 0.3666,
+              height: size.height * 0.36666,
               color: AppColors.primary,
             ),
             Positioned(
@@ -38,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Positioned(
-              bottom: size.height * 0.12,
+              bottom: size.height * 0.012,
               left: 0,
               right: 0,
               child: Column(
@@ -59,8 +60,18 @@ class _LoginPageState extends State<LoginPage> {
                     padding:
                         const EdgeInsets.only(left: 40, right: 40, top: 40),
                     child: SocialLoginButton(
-                      onTap: () {
-                        print('clicou');
+                      onTap: () async {
+                        GoogleSignIn _googleSignIn = GoogleSignIn(
+                          scopes: [
+                            'email',
+                          ],
+                        );
+                        try {
+                          final response = await _googleSignIn.signIn();
+                          print(response);
+                        } catch (error) {
+                          print(error);
+                        }
                       },
                     ),
                   ),
